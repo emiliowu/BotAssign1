@@ -14,13 +14,38 @@ class assemble extends Application {
         $this->data['pageBody'] = 'assemblePage';
         if ($this->session->userdata('username')) {
             $player = $this->session->userdata('username');
-            $this->playerCards($player);
-            $this->selectHeads($player);
-            $this->selectBody($player);
-            $this->selectLegs($player);
-            $this->render();
+
+            $this->load->model('assembleModel');
+            //try to call the query in the model to initialize it
+            $query = $this->assembleModel->playerCollections($player);
+            $playerCards = array();
+            foreach ($query as $row) {
+                $playerCards[] = (array) $row;
+            }
+
+            //this checks to see if the player has any cards
+            if (empty($playerCards)) {
+                $this->data['playerCards'] = 'You have no cards at the moment!';
+                $this->render();
+            } else {
+                $this->playerCards($player);
+                $this->selectHeads($player);
+                $this->selectBody($player);
+                $this->selectLegs($player);
+
+
+                // Check if the game state allows to buy/see
+                if ($this->session->userdata('token')) {
+                    $this->transactionsAction($player);
+                } else {
+                    echo "<script>alert('Game state is not open')</script>";
+                }
+
+                $this->render();
+            }
         } else {
-            $this->render();
+            echo "<script>alert('You must be signed in to access this page!')</script>";
+            redirect('home', 'refresh');
         }
     }
 
@@ -97,6 +122,82 @@ class assemble extends Application {
         $cards['allPieces'] = $allLegs;
 
         $this->data['selectLegs'] = $this->parser->parse('_allPieces', $cards, true);
+    }
+
+    // helper function for transaction buttons
+    private function transactionsAction($playerName) {
+        if (!is_null($this->input->post('buy'))) {
+            $this->buyPieces($playerName);
+        }
+        if (!is_null($this->input->post('sell'))) {
+            $this->sellPieces($playerName);
+        }
+    }
+
+    // function to buy pieces from the BCC server
+    private function buyPieces($playerName) {
+        $this->load->model('assembleBuy');
+        $token = $this->session->userdata['token'];
+        $postdata = http_build_query(
+                array(
+                    'team' => 'b01',
+                    'token' => $token,
+                    'player' => $playerName
+                )
+        );
+
+        $post = array('http' =>
+            array(
+                'method' => 'POST',
+                'header' => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata
+            )
+        );
+
+        $context = stream_context_create($post);
+        $result = file_get_contents('http://ken-botcards.azurewebsites.net/buy', false, $context);
+        $xml = simplexml_load_string($result);
+        $balance = $xml['balance'];
+        foreach ($xml->certificate as $certificate) {
+            $pName = $certificate->player;
+            $piece = $certificate->piece;
+            $cToken = $certificate->token;
+
+            $this->assembleBuy->updateCollections($pName, $piece, $cToken, $balance);
+        }
+    }
+
+    // function to sell pieces from the BCC server
+    private function sellPieces($playerName) {
+        $this->load->model('assembleSell');
+        $token = $this->session->userdata['token'];
+        $postdata = http_build_query(
+                array(
+                    'team' => 'b01',
+                    'token' => $token,
+                    'player' => $playerName
+                )
+        );
+
+        $post = array('http' =>
+            array(
+                'method' => 'POST',
+                'header' => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $postdata
+            )
+        );
+
+        $context = stream_context_create($post);
+        $result = file_get_contents('http://ken-botcards.azurewebsites.net/sell', false, $context);
+        $xml = simplexml_load_string($result);
+        foreach ($xml->certificate as $certificate) {
+            $pName = $certificate->player;
+            $topToken = $certificate->piece;
+            $midToken = $certificate->token;
+            $botToken = $certificate['balance'];
+
+            $this->assembleSell->updateCollections($pName, $topToken, $midToken, $botToken);
+        }
     }
 
 }

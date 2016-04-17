@@ -8,14 +8,6 @@
         </select>     
     </div>
 
-    <div id="playerTransactions">
-        <h2 class="text">Buy/Sell Bots Pieces:</h2>
-        <form method='post' name='playerActions' id='playerActionsForm'>
-            <input class='buttonPlayer' type='submit' name='buy' value='Buy'>
-            <input class='buttonPlayer' type='submit' name='sell' value='Sell'>
-        </form>
-    </div>
-
     <div id="playerActivies">
         <h2 class="text">Recent Activities:</h2>
         <table>

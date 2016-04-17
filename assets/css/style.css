@@ -180,10 +180,6 @@ player_holdings{
     text-align: center; 
 }
 
-#playerActionsForm {
-    text-align: center;
-}
-
 .buttonPlayer:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     background: yellow;
@@ -197,6 +193,11 @@ player_holdings{
 /*------ END OF Player Portfolio Page ------*/
 
 /**------ CSS FOR Assemble Page ------******************************************************************/
+
+
+#playerActionsForm {
+    text-align: center;
+}
 
 #collectionContainer{
 
