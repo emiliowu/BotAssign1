@@ -114,7 +114,7 @@ class Application extends CI_Controller {
         );
 
         $context = stream_context_create($post);
-        $result = file_get_contents('http://botcards.jlparry.com/register', false, $context);
+        $result = file_get_contents('http://ken-botcards.azurewebsites.net/register', false, $context);
         $xml = simplexml_load_string($result);
         $token = (string) $xml->token;
         $this->data['token'] = $token;
