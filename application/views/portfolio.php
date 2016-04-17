@@ -1,14 +1,21 @@
 <div id="container">
     <div id="dropdown">
         <h2 class="text">Player: {username}</h2>
-        <!--{Player_Dropdown}-->
         Select a player to view
-	<select onchange="window.location.href=this.value">
+        <select onchange="window.location.href = this.value">
             <option>Player Name</option>
             {playerDropdown}
-	</select>     
+        </select>     
     </div>
-    
+
+    <div id="playerTransactions">
+        <h2 class="text">Buy/Sell Bots Pieces:</h2>
+        <form method='post' name='playerActions' id='playerActionsForm'>
+            <input class='buttonPlayer' type='submit' name='buy' value='Buy'>
+            <input class='buttonPlayer' type='submit' name='sell' value='Sell'>
+        </form>
+    </div>
+
     <div id="playerActivies">
         <h2 class="text">Recent Activities:</h2>
         <table>
@@ -23,7 +30,7 @@
         </table>
     </div>
 
-     <div id="playerHoldings">
+    <div id="playerHoldings">
         <h2 class="text">Current Holdings:</h2>
         <table>
             <tr>
@@ -63,5 +70,5 @@
                 <td>{26hl}</td>
             </tr>
         </table>
-     </div>
+    </div>
 </div>

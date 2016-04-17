@@ -1,33 +1,22 @@
-{playerTable}
-<table class="{tableClass}">
+<table id="playerInfoTable">
     <tr>
-        <td colspan="2">
-            <!--
-            <p class="playerName">
-                {Player}
-            </p> -->
+        <th>Player</th>
+        <th>Avatar</th>
+        <th>Cash</th>
+        <th>Equity</th>
+    </tr>
+    {playerTable}
+    <tr>
+        <td>
             <a href="/portfolio/{Player}">{Player}</a>
         </td>
-    </tr>
-    <tr>
+        <td></td>
         <td>
-            <p>Cash: </p>
+            {Peanuts}
         </td>
         <td>
-            <p>
-                {Peanuts} Peanuts
-            </p>
+            {Total_Pieces} Cards
         </td>
     </tr>
-    <tr>
-        <td>
-            <p>Equity:</p>
-        </td>
-        <td>
-            <p>
-                {Total_Pieces} Cards
-            </p>
-        </td>
-    </tr>
+    {/playerTable}
 </table>
-{/playerTable}

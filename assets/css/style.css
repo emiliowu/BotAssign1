@@ -8,6 +8,10 @@ table{
     border-spacing: 10px; 
 }
 
+#adminTitle{
+    text-align: center; 
+}
+
 .text{
     font-weight: bold; 
     font-size: 30px; 
@@ -21,7 +25,7 @@ table{
 }
 
 #gameStatus{
-    color: white;
+    color: black;
     width: 50%;
     top: 200px;
  
@@ -38,10 +42,10 @@ table{
 }
 
 #right_container{
-        color: white;
+        color: black;
 	position: absolute;
-	top: 250px;
-	right: 0.5%;
+	top: 325px;
+	right: 5%;
 	width: 	30%;
 	padding-bottom: 30px;
 }
@@ -50,17 +54,18 @@ table{
     font-weight: bold; 
 }
 
-.firstColumn{
-    float: left; 
-    margin-right: 110px; 
-    border: 3.5px solid white;
+#playerInfoTable {
+    border-collapse: collapse;
+    width: 90%;
 }
 
-.secondColumn{
-    /*display: inline-block;*/
-    float: right; 
-    border: 3.5px solid white; 
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
+
+tr:hover{background-color:#f5f5f5}
 
 #gameStats {
 	border: 2px solid #C0BEBE;
@@ -78,16 +83,12 @@ table{
 	text-align: center;
 	height: 10px;
 }
-
 /*------ END OF HOMEPAGE ------*/
-
-
-
 
 /**------ CSS FOR THE HEADER FIELD ------******************************************************************/
 
 #banner{
-	width:30%;
+    width:50%;
 }
 
 #siteTitle{
@@ -97,13 +98,20 @@ table{
 #bannerLogoImage{}
 
 #headerInfo{
-        color: white;
-	width:60px;
-	padding-left: 3em;
+    color: black;
+    width:60px;
+    padding-left: 3em;
 }
 
-.headerTable{
-    width: 50%;
+.buttonLogin:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background: yellow;
+}
+
+.buttonLogin{
+    text-align: center;
+    border-radius: 10px;
+    font-size:15px !important;
 }
 
 /*------ END OF HEADER FIELD ------*/
@@ -111,56 +119,56 @@ table{
 /**------ CSS FOR THE NAVIGATION MENUBAR FIELD ------******************************************************/
 
 nav{
-	padding: 0 0 0 0;
+    padding: 0 0 0 0;
 }
 
 nav ul{
-	list-style: none;
-	padding: 0;
-	position: relative;
+    list-style: none;
+    padding: 0;
+    position: relative;
 }
 nav ul:after {
-	content: "";
-	clear: both;
-	display: block;
+    content: "";
+    clear: both;
+    display: block;
 }
 
 .menu{
-	float: left;
-	text-align: center;
-	width: 33.3%;
-	line-height: 25px;
+    float: left;
+    text-align: center;
+    width: 20%;
+    line-height: 25px;
 }
 
 nav ul li a{
-	
-	padding: 5px 25px;
-	text-decoration: none;
-	color: white;
-	background: #252E30;
-	font-size: 0.9em;
-	text-align: center;
-	display: block;
-	transition: 0.5s all;
-	-webkit-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-o-transition: 0.5s all;
+
+    padding: 5px 25px;
+    text-decoration: none;
+    color: white;
+    background: #252E30;
+    font-size: 0.9em;
+    text-align: center;
+    display: block;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
 }
-	
+
 nav ul li a:hover {
-	background: #353A42;
-	color: #49CBCD;
-	text-decoration: none;
+    background: #353A42;
+    color: #49CBCD;
+    text-decoration: none;
 }
 nav ul ul{
-	display: none;
-	position: absolute;
-	width: 20%;
+    display: none;
+    position: absolute;
+    width: 20%;
 }
 
 nav ul li:hover > ul{
-	display: block;
-	z-index: 1;
+    display: block;
+    z-index: 1;
 }
 /*------ END OF NAVIGATION MENUBAR FIELD ------*/
 
@@ -176,11 +184,27 @@ player_activies{
 player_holdings{
     text-align: center; 
 }
+
+#playerActionsForm {
+    text-align: center;
+}
+
+.buttonPlayer:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background: yellow;
+}
+.buttonPlayer{
+    text-align: center;
+    border-radius: 10px;
+    font-size:20px !important;
+}
+
 /*------ END OF Player Portfolio Page ------*/
+
 /**------ CSS FOR Assemble Page ------******************************************************************/
 
 #collectionContainer{
-    
+
 }
 .collection1{
     /*display: inline-block;*/
@@ -201,7 +225,7 @@ player_holdings{
 #assemblyRightContainer {
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 50%;
 }
 
 .buttonAssemble:hover {
@@ -223,6 +247,14 @@ player_holdings{
     text-align: center;
 }
 /*------ END OF Assemble Page ------*/
+
+/**------ CSS FOR THE Admin Page ------******************************************************************/
+#adminTable{
+    width: 35%;
+}
+
+/*------ END OF Admin Page ------*/
+
 /**------ CSS FOR THE FOOTER FIELD ------******************************************************************/
 
 

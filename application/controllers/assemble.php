@@ -14,13 +14,30 @@ class assemble extends Application {
         $this->data['pageBody'] = 'assemblePage';
         if ($this->session->userdata('username')) {
             $player = $this->session->userdata('username');
-            $this->playerCards($player);
-            $this->selectHeads($player);
-            $this->selectBody($player);
-            $this->selectLegs($player);
-            $this->render();
+            
+            $this->load->model('assembleModel');
+            //try to call the query in the model to initialize it
+            $query = $this->assembleModel->playerCollections($player);
+            $playerCards = array();
+
+            foreach ($query as $row) {
+                $playerCards[] = (array) $row;
+            }
+            
+            //this checks to see if the player has any cards
+            if(empty($playerCards)){
+                $this->data['playerCards']='You have no cards at the moment!';
+                $this->render(); 
+            }else{
+                $this->playerCards($player);
+                $this->selectHeads($player);
+                $this->selectBody($player);
+                $this->selectLegs($player);
+                $this->render();
+            } 
         } else {
-            $this->render();
+            echo "<script>alert('You must be signed in to access this page!')</script>";
+            redirect('home', 'refresh');
         }
     }
 
@@ -98,6 +115,7 @@ class assemble extends Application {
 
         $this->data['selectLegs'] = $this->parser->parse('_allPieces', $cards, true);
     }
+
 }
 
 /* End of file Assemble_page.php */

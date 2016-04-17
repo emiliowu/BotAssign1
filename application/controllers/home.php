@@ -4,27 +4,31 @@
  * application/controllers/Home.php
  */
 
-class home extends Application {
+class home extends Application
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
     }
 
-    public function index() {
+    public function index()
+    {
         $this->data['pageBody'] = 'homepage';
         $this->gameStatus();
         $this->playerInfo();
-        $this->render();
     }
-
-    private function gameStatus() {
+	
+    private function gameStatus()
+    {
         $this->load->model('gameStatus');
         $query = $this->gameStatus->gameSummary();
 
         $gameStatus = array();
 
-        foreach ($query as $stat) {
-            $gameSummary[] = (array) $stat;
+        foreach ($query as $stat)
+        {
+            $gameSummary[] = (array) $stat;	
         }
 
         $Status['seriesInfo'] = $gameSummary;
@@ -32,33 +36,24 @@ class home extends Application {
         $this->data['gameStatus'] = $this->parser->parse('_seriesInfo', $Status, true);
     }
 
-    private function playerInfo() {
+     private function playerInfo() 
+    {
         $this->load->model('playerInfo');
 
         //try to call the query in the model to initialize it
         $query = $this->playerInfo->playerEC();
         $playerInfo = array();
 
-        foreach ($query as $row) {
+        foreach ($query as $row)
+        {
             $playerInfo[] = (array) $row;
         }
-
-        $table = array();
-        foreach ($playerInfo as $index => $row) {
-            $new = $row;
-            switch ($index % 2 == 0) {
-                case TRUE:
-                    $new['tableClass'] = "firstColumn";
-                    break;
-                case FALSE:
-                    $new['tableClass'] = "secondColumn";
-                    break;
-            }
-            $table[] = $new;
-        }
-        $players['playerTable'] = $table;
-        $this->data['playerInfo'] = $this->parser->parse('_playerTable', $players, true);
+        
+        $players['playerTable'] = $playerInfo; 
+        $this->data['playerInfo'] = $this->parser->parse('_playerTable', $players, true);        
+        $this->render();
     }
+
 }
 
 /* End of file Home.php */
