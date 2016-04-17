@@ -1,6 +1,11 @@
 Change log
 Newest at the top
 
+04/15/2016 06:30PM: Created an admin account with admin functionality to remove players.
+04/15/2016 12:30PM: Updated player registration by being able to upload a picture for your avatar.
+04/15/2016 11:00AM: Worked on player registration.
+04/15/2016 10:30AM: Worked on getting the game status, what round it is.
+04/15/2016 10:30AM: Worked on Agent Registration, getting the secret token.
 04/14/2016 04:18PM: Updated code to get the Buy function to work and purchase from the BCC server. Also made some minor CSS changes.
 04/07/2016 00:26AM: updated code as per Assignment 1 feedbacks
 02/14/2016 10:45PM: Updated semi-Broken Assembly Page
