@@ -17,17 +17,16 @@ class playerLogin extends MY_Model {
         parent::__construct();
     }
     
-    /*public function get($whom){
-        $data = $this->db->get_where('players', $whom)->result_array();
-
-        if(empty($data)){return NULL;}
-
-        return $data[0];
-    }*/
-    
+ 
     //this function query's the players in the database
     public function userLogin(){
-        $query = $this->db->query('SELECT Player FROM players');
+        $query = $this->db->query('SELECT * FROM playerLogin');
         return $query->result();
+    }
+    
+    public function avatarGet($player){
+        $query = $this->db->query('SELECT avatar FROM playerLogin WHERE username ="'.$player.'"');
+        $ret = $query->row();
+        return $ret->avatar;
     }
 }

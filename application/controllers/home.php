@@ -36,7 +36,7 @@ class home extends Application
         $this->data['gameStatus'] = $this->parser->parse('_seriesInfo', $Status, true);
     }
 
-    private function playerInfo() 
+     private function playerInfo() 
     {
         $this->load->model('playerInfo');
 
@@ -49,21 +49,7 @@ class home extends Application
             $playerInfo[] = (array) $row;
         }
         
-        $table = array();
-        foreach ($playerInfo as $index => $row)
-        {
-            $new = $row;
-            switch($index % 2 == 0){
-                case TRUE:
-                    $new['tableClass'] = "firstColumn";
-                    break;
-                case FALSE:
-                    $new['tableClass'] = "secondColumn";
-                    break;
-            }
-            $table[] = $new;
-        }
-        $players['playerTable'] = $table;
+        $players['playerTable'] = $playerInfo; 
         $this->data['playerInfo'] = $this->parser->parse('_playerTable', $players, true);        
         $this->render();
     }
