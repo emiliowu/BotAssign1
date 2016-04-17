@@ -33,6 +33,14 @@ class assemble extends Application {
                 $this->selectHeads($player);
                 $this->selectBody($player);
                 $this->selectLegs($player);
+                
+                // Check if the game state allows to buy/see
+                if ($this->session->userdata('token')) {
+                    $this->transactionsAction($player);
+                } else {
+                    echo "<script>alert('Game state is not open')</script>";
+                }
+                
                 $this->render();
             } 
         } else {

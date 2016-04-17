@@ -12,29 +12,28 @@
  *
  * @author Emilio
  */
-class portfolioBuy extends MY_Model {
+class assembleSell extends MY_Model {
 
     function __construct() {
         parent::__construct();
     }
 
-    public function updateCollections($playerName, $piece, $cToken) {
+    public function updateCollections($playerName, $topToken, $midToken, $botToken) {
         $datetime = date('Y.m.d-H:i:s');
 
-        /* $query = $this->db->query('INSERT INTO collections (Token, Piece, '
-          . 'Player, Datetime) VALUES ("' . $cToken . '", "' . $piece . '", "'
-          . $playerName . '", "' . $datetime . '")'); */
+        $query = $this->db->query('DELETE FROM collections WHERE Token = "' 
+                . $topToken . '"Player = "' . $playerName . '" AND Token = "' 
+                . $midToken . '" AND Token = "' . $botToken . '"');
 
-        //$this->updateTransactions($playerName, $datetime);
-        $this->payment($playerName);
-
+        $this->updateTransactions($playerName, $datetime);
+        $this->payment($playerName, $balance);
 
         //return $query->result();
     }
 
     public function updateTransactions($playerName) {
         $series = 'x';
-        $trans = 'buy';
+        $trans = 'sell';
         $datetime = date('Y.m.d-H:i:s');
 
         $query = $this->db->query('INSERT INTO transactions (Datetime, Player, '
@@ -42,8 +41,8 @@ class portfolioBuy extends MY_Model {
                 . $series . '", "' . $trans . '")');
     }
 
-    public function payment($playerName) {
-        $fund = $this->getCash($playerName);
+    public function payment($playerName, $fund) {
+        //$fund = $this->getCash($playerName);
 
         $query = $this->db->query('UPDATE players'
                 . ' SET Peanuts = "' . $fund . '"'

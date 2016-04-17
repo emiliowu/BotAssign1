@@ -34,15 +34,7 @@ class portfolio extends Application {
         } else {
             $this->data['username'] = $sessionPlayers;
         }
-
-        if ($this->session->userdata('username')) {
-            if ($sessionPlayers === $players || $this->data['username'] === 'user') {
-                $this->transactionsAction($sessionPlayers);
-            } else {
-                echo "<script>alert('You do not have permissions to buy/sell for this player!')</script>";
-            }
-        }
-
+        
         $this->render();
     }
 
@@ -120,63 +112,6 @@ class portfolio extends Application {
         $this->data['26hb'] = $this->portfolioCollections->getCollections($players, "26h-1");
         $this->data['26hl'] = $this->portfolioCollections->getCollections($players, "26h-2");
     }
-
-    // helper function for transaction buttons
-    private function transactionsAction($playerName) {
-        if (!is_null($this->input->post('buy'))) {
-            $this->buyPieces($playerName);
-        }
-        if (!is_null($this->input->post('sell'))) {
-            $this->sellPieces($playerName);
-        }
-    }
-
-    // function to buy pieces from the BCC server
-    private function buyPieces($playerName) {
-        $this->load->model('portfolioBuy');
-        $token = $this->session->userdata['token'];
-        $postdata = http_build_query(
-                array(
-                    'team' => 'b01',
-                    'token' => $token,
-                    'player' => $playerName
-                )
-        );
-
-        $post = array('http' =>
-            array(
-                'method' => 'POST',
-                'header' => 'Content-type: application/x-www-form-urlencoded',
-                'content' => $postdata
-            )
-        );
-
-        //$context = stream_context_create($post);
-        //$result = file_get_contents('http://botcards.jlparry.com/register', false, $context);
-        //$xml = simplexml_load_string($result);
-        //$token = (string) $xml->token;
-
-        $context = stream_context_create($post);
-        $result = file_get_contents('http://botcards.jlparry.com/buy', false, $context);
-        $xml = simplexml_load_string($result);
-        //print_r($xml);
-        //die();
-        foreach ($xml->certificate as $certificate) {   //$xml->xpath('//certificate') as $certificate) {
-            $pName = $certificate->player;
-            $piece = $certificate->piece;
-            $cToken = $certificate->token;
-            //$datetime = $certificate->datetime;
-
-            $this->portfolioBuy->updateCollections($pName, $piece, $cToken);
-            //$this->portfolioBuy->updateTransactions($playerName);
-        }
-    }
-
-    // function to sell pieces from the BCC server
-    private function sellPieces() {
-        
-    }
-
 }
 
 /* End of file Portfolio.php */
